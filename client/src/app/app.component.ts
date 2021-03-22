@@ -13,13 +13,13 @@ export class AppComponent implements OnInit {
 	/*
 	* Initial Game Variables and constants starts
 	*/
-	private title = 'Dynamo Demo';
-	private gameGrid = <Array<Object>>[];
-	private playedGameGrid = <Array<Object>>[];
-	private movesPlayed = <number>0;
-	private displayPlayerTurn = <Boolean>true;
-	private myTurn = <Boolean>true;
-	private whoWillStart = <Boolean>true;
+	 title = 'Dynamo Demo';
+	 gameGrid = <Array<Object>>[];
+	 playedGameGrid = <Array<Object>>[];
+	 movesPlayed = <number>0;
+	 displayPlayerTurn = <Boolean>true;
+	 myTurn = <Boolean>true;
+	 whoWillStart = <Boolean>true;
 	/*
 	* Initial Game Variables and constants starts
 	*/
@@ -30,17 +30,17 @@ export class AppComponent implements OnInit {
 	/* Bootstrap modal Options ends */
 
 	/*socket related Variable,ng-models and constant starts*/
-	private totalRooms = <Number> 0;
-	private emptyRooms = <Array<number>> [];
-	private roomNumber = <Number> 0;
-	private playedText = <string>'';
-	private whoseTurn = 'X';
+	 totalRooms: number = 0;
+	 emptyRooms = <Array<number>> [];
+	 roomNumber: number = 0;
+	 playedText = <string>'';
+	 whoseTurn = 'X';
 	/*socket related Variable,ng-models and constant starts*/
 
 	constructor(
-		private _renderer: Renderer,
-		private modalService: NgbModal,
-		private appService: AppService,
+		 private _renderer: Renderer,
+		 private modalService: NgbModal,
+     private appService: AppService,
 	) {
 		this.gameGrid = appService.gameGrid;
 	}
