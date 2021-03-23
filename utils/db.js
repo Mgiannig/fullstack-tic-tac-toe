@@ -1,7 +1,3 @@
-/* 
-* @author Shashank Tiwari
-* Multiplayer Tic-Tac-Toe Game using Angular, Nodejs
-*/
 "use strict";
 
 class redisDB{

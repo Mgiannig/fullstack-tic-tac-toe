@@ -1,57 +1,39 @@
-/* 
-* @author Shashank Tiwari
-* Multiplayer Tic-Tac-Toe Game using Angular, Nodejs
-*/
-'use strict';
-
+"use strict";
 const express = require("express");
-const http = require('http');
-const socketio = require('socket.io');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const http = require("http");
+const socketio = require("socket.io");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const socketEvents = require('./utils/socket'); 
-const routes = require('./utils/routes'); 
+const socketEvents = require("./utils/socket");
+const routes = require("./utils/routes");
 const redisDB = require("./utils/db").connectDB();
 
+class Server {
+  constructor() {
+    this.port = 4000;
+    this.host = "localhost";
 
-class Server{
+    this.app = express();
+    this.http = http.Server(this.app);
+    this.socket = socketio(this.http);
+  }
 
-    constructor(){
-        this.port =  process.env.PORT || 4000;
-        this.host = `localhost`;
-        
-        this.app = express();
-        this.http = http.Server(this.app);
-        this.socket = socketio(this.http);
-    }
+  appConfig() {
+    this.app.use(bodyParser.json());
+    this.app.use(cors());
+  }
 
-    appConfig(){        
-        this.app.use(
-            bodyParser.json()
-        );
-        this.app.use(
-        	cors()
-        );
-    }
+  appExecute() {
+    this.appConfig();
 
-    /* Including app Routes starts*/
-    includeRoutes(){
-        new routes(this.app,redisDB).routesConfig();
-        new socketEvents(this.socket,redisDB).socketConfig();
-    }
-    /* Including app Routes ends*/  
+    new routes(this.app, redisDB).routesConfig();
+    new socketEvents(this.socket, redisDB).socketConfig();
 
-    appExecute(){
-
-        this.appConfig();
-        this.includeRoutes();
-
-        this.http.listen(this.port, this.host, () => {
-            console.log(`Listening on http://${this.host}:${this.port}`);
-        });
-    }
-
+    this.http.listen(this.port, this.host, () => {
+      console.log(`Listening on http://${this.host}:${this.port}`);
+    });
+  }
 }
 
 const app = new Server();
